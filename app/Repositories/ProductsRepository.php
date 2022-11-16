@@ -30,9 +30,9 @@ class ProductsRepository extends BaseRepository implements RepositoryInterface
 
             // $data = $this->getAllData($this->model->getTable(), $search, $this->model->searchable, ['deleted_at' => NULL], ['id', 'name']);
 
-            $data = $this->model->with('category')->get(['product_name']);
+            $data = $this->model->with('category')->get(['product_name', 'category_id']);
 
-            dd($data->toArray());
+            $data = $data->toArray();
 
 
             if ($data) {

@@ -12,6 +12,8 @@ class Categories extends Model
 
     protected $fillable = ['id', 'category_name', 'created_at', 'updated_at'];
 
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
     protected $searchable = ['category_name'];
 
     protected $createRules = [

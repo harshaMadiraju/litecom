@@ -13,6 +13,8 @@ class Products extends Model implements ModelInterface
 
     protected $searchable = ['product_name'];
 
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
     protected $fillable = [
         'category_id', 'product_name'
     ];
