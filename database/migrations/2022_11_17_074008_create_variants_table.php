@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles_accesses', function (Blueprint $table) {
+        Schema::create('variants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained()->onDelete('restrict');
-            $table->string('module');
-            $table->string('methods_allowed')->comment('get,post,put,patch,delete');
-            $table->enum('status', ['A', 'I']);
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('value');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles_accesses');
+        Schema::dropIfExists('variants');
     }
 };

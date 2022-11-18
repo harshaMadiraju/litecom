@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Helpers\Response;
 use App\Repositories\BaseRepository;
 use App\Models\Products;
+use App\Models\Variants;
 use App\Repositories\RepositoryInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -13,13 +14,13 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class ProductsRepository.
  */
-class ProductsRepository extends BaseRepository implements RepositoryInterface
+class VariantsRepository extends BaseRepository implements RepositoryInterface
 {
     public $model;
 
     public function __construct()
     {
-        $this->model = new Products;
+        $this->model = new Variants;
     }
 
     public function all($collection = [])

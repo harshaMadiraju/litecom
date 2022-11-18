@@ -24,7 +24,9 @@ class AllowAccess
         $module = explode('/', $request->url());
         $module = $module[4];
 
-        $access = RolesAccesses::where('role_id', $user['role_id'])->where('module', $module)->first();
+        $method = strtolower($request->method());
+
+        $access = RolesAccesses::where('role_id', $user['role_id'])->where('module', $module)->whereRaw("FIND_IN_SET(?, methods_allowed)", [$method])->first();
 
         if (!$access) {
             return response()->json(Response::prepareResponse(false, [], 'You dont have access', Response::UNAUTHORIZED_ERROR), Response::UNAUTHORIZED_ERROR);

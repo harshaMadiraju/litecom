@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\ModelInterface;
 
-class Products extends Model implements ModelInterface
+class Products extends BaseModel implements ModelInterface
 {
     use HasFactory, SoftDeletes;
 
@@ -44,5 +43,10 @@ class Products extends Model implements ModelInterface
     public function category()
     {
         return $this->belongsTo(Categories::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(Variants::class, 'product_id');
     }
 }

@@ -5,22 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Categories extends BaseModel implements ModelInterface
+class Variants extends BaseModel implements ModelInterface
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['id', 'category_name', 'created_at', 'updated_at'];
+    protected $fillable = ['product_id', 'name', 'value', 'created_at', 'updated_at'];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
-    protected $searchable = ['category_name'];
+    protected $searchable = ['name'];
 
     protected $createRules = [
-        'category_name' => 'required|string'
+        'product_id' => 'required|exists:products,id',
+        'name' => 'required|string',
+        'value' => 'required|string'
     ];
 
     protected $updateRules = [
-        'category_name' => 'required|string'
+        'name' => 'required|string',
+        'value' => 'required|string'
     ];
 
     public function getCreateRules()
@@ -38,8 +41,8 @@ class Categories extends BaseModel implements ModelInterface
         return $this->searchable;
     }
 
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Products::class, 'category_id');
+        return $this->belongsTo(Products::class);
     }
 }

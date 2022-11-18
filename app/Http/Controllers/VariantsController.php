@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Response;
-use App\Repositories\CategoriesRepository;
+use App\Repositories\VariantsRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoriesController extends Controller
+class VariantsController extends Controller
 {
     public $repository;
 
-    public function __construct(CategoriesRepository $repository)
+    public function __construct(VariantsRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -19,9 +19,9 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/api/categories/all",
-     *  summary="Get All categories",
-     *  tags={"categories"},
+     *  path="/api/variants/all",
+     *  summary="Get All variants",
+     *  tags={"variants"},
      *  security={{"bearerAuth":{}}},
      *  @OA\Response(response=200, description="Return a list of resources"),
      * )
@@ -32,15 +32,15 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
         $collection = $request->all();
-        $categories = $this->repository->all($collection);
-        return response()->json($categories, $categories['status']);
+        $variants = $this->repository->all($collection);
+        return response()->json($variants, $variants['status']);
     }
 
     /**
      * @OA\Post(
-     *  path="/api/categories/create",
+     *  path="/api/variants/create",
      *  summary="Create a variant",
-     *  tags={"categories"},
+     *  tags={"variants"},
      *      @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
@@ -72,9 +72,9 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/api/categories/{id}",
+     *  path="/api/variants/{id}",
      *  summary="Get a variant",
-     *  tags={"categories"},
+     *  tags={"variants"},
      *  @OA\Parameter(name="id", description="id, eg; 2", required=true, in="path", @OA\Schema(type="integer")),
      *  security={{"bearerAuth":{}}},
      *  @OA\Response(response=200, description="Retrieved successfully"),
@@ -96,9 +96,9 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Put (
-     *  path="/api/categories/update/{id}",
+     *  path="/api/variants/update/{id}",
      *  summary="Update variant",
-     *  tags={"categories"},
+     *  tags={"variants"},
      *      @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *          @OA\JsonContent(
@@ -137,9 +137,9 @@ class CategoriesController extends Controller
 
     /**
      * @OA\Delete (
-     *  path="/api/categories/{id}",
+     *  path="/api/variants/{id}",
      *  summary="Delete variant",
-     *  tags={"categories"},
+     *  tags={"variants"},
      *  @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *  security={{"bearerAuth":{}}},
      *  @OA\Response(response=200, description="Deleted successfully"),
