@@ -78,7 +78,7 @@ class ApiController extends Controller
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(ApiResponse::prepareResponse(false, [], 'Unable to create Token', ApiResponse::FORM_VALIDATION_ERROR, ['error' => $validator->messages()]), ApiResponse::FORM_VALIDATION_ERROR);
+                return response()->json(ApiResponse::prepareResponse(false, [], 'Invalid Credentials.Please try again', ApiResponse::FORM_VALIDATION_ERROR, ['error' => $validator->messages()]), ApiResponse::FORM_VALIDATION_ERROR);
             }
         } catch (JWTException $e) {
             return response()->json(ApiResponse::prepareResponse(false, [], 'Failed to create token', ApiResponse::FORM_VALIDATION_ERROR, ['error' => $e->getMessage()]));
