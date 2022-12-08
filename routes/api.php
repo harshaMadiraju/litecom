@@ -36,7 +36,7 @@ Route::middleware(['jwt.verify', AllowAccess::class])->group(function () {
         Route::patch('update/{id}', 'ProductsController@update');
         Route::delete('{id}', 'ProductsController@delete');
 
-        /*---------------------Reserved for admins----------------------*/
+        /*-------------------------------------------------------------*/
 
         Route::get('all', 'ProductsController@index');
         Route::get('{id}', 'ProductsController@show');
@@ -51,7 +51,7 @@ Route::middleware(['jwt.verify', AllowAccess::class])->group(function () {
         Route::patch('update/{id}', 'CategoriesController@update');
         Route::delete('{id}', 'CategoriesController@delete');
 
-        /*---------------------Reserved for admins----------------------*/
+        /*-------------------------------------------------------------*/
 
         Route::get('all', 'CategoriesController@index');
         Route::get('{id}', 'CategoriesController@show');
@@ -66,7 +66,7 @@ Route::middleware(['jwt.verify', AllowAccess::class])->group(function () {
         Route::patch('update/{id}', 'VariantsController@update');
         Route::delete('{id}', 'VariantsController@delete');
 
-        /*---------------------Reserved for admins----------------------*/
+        /*------------------------------------------------------------*/
 
         Route::get('all', 'VariantsController@index');
         Route::get('{id}', 'VariantsController@show');

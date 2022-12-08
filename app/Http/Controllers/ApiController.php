@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Response as ApiResponse;
 use JWTAuth;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,8 +60,6 @@ class ApiController extends Controller
      *  @OA\Response(response=422, description="Bad request"),
      *  @OA\Response(response=500, description="Internal server error"),
      * )
-     * @param  Request  $request
-     * @return JsonResponse
      */
 
     public function authenticate(Request $request)
@@ -99,18 +98,19 @@ class ApiController extends Controller
             return response()->json(ApiResponse::prepareResponse(false, [], 'Failed', ApiResponse::FORM_VALIDATION_ERROR, ['error' => $validator->messages()]), ApiResponse::FORM_VALIDATION_ERROR);
         }
 
-        //Request is validated, do logout        
+        //Request is validated, do logout
         try {
             JWTAuth::invalidate($request->token);
 
             return response()->json(ApiResponse::prepareResponse(true, [], 'Logged Out Success', ApiResponse::SUCCESS, []), ApiResponse::SUCCESS);
-        } catch (JWTException $exception) {
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Sorry, user cannot be logged out'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-
-            return response()->json(ApiResponse::prepareResponse(false, [], 'Sorry, user cannot be logged out', ApiResponse::INTERNAL_SERVER_ERROR, ['error' => $e->getMessage()]));
+                'message' => 'Sorry, user cannot be logged out',
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                ['error' => $e->getMessage()]
+            ],
+            Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
